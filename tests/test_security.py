@@ -1,5 +1,8 @@
 from datetime import UTC, datetime, timedelta
+
 from src.security import can_cancel
+
+
 def test_owner_within_24h():
     now = datetime.now(UTC)
     assert can_cancel("NEW", 1, 1, False, now - timedelta(hours=1), now)

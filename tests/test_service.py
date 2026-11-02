@@ -1,7 +1,11 @@
 from unittest.mock import Mock
+
 import pytest
+
 from src.application import OrderService
 from src.domain import Order
+
+
 def test_gateway_approved():
     gateway = Mock()
     gateway.charge.return_value = True

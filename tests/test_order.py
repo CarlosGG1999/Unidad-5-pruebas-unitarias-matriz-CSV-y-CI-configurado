@@ -1,5 +1,8 @@
 import pytest
+
 from src.domain import CustomerHasDebt, Order
+
+
 def test_vip_discount():
     o = Order(100, vip=True)
     assert o.confirm() == 85
