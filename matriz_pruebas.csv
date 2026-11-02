@@ -1,0 +1,27 @@
+﻿ID,Regla,Entrada,Resultado esperado,Tipo,Prueba (archivo::función),Resultado real
+CP-01,Pedido VIP recibe 15% de descuento,"VIP, total 100","Cobro 85, estado CONFIRMED",Éxito,test_order.py::test_vip_discount,PASSED
+CP-02,Pedido VIP recibe 15% de descuento,"VIP, total 200","Cobro 170, descuento 30",Éxito,test_order.py::test_vip_discount_200,PASSED
+CP-03,Cliente regular no recibe descuento,"Regular, total 100",Cobro 100,Éxito,test_order.py::test_regular_no_discount,PASSED
+CP-04,Cliente regular no recibe descuento,"Regular, total 200","Cobro 200, descuento 0",Éxito,test_order.py::test_regular_no_discount_200,PASSED
+CP-05,Propietario cancela dentro de 24 h,"Propietario, NEW, creado hace 1 h",Cancelación permitida,Éxito,test_security.py::test_owner_within_24h,PASSED
+CP-06,Administrador cancela pedido ajeno,"Admin, NEW, otro usuario",Cancelación permitida,Éxito,test_security.py::test_admin_can_cancel_others_new_order,PASSED
+CP-07,Commit hace persistente el pedido,Guardar id=1 total 120 y commit,Registro con total 120,Éxito,test_repository.py::test_repository_commit,PASSED
+CP-08,Pago aprobado devuelve el importe,"Pasarela (mock) responde True, total 100",Devuelve 100; cobro llamado una vez con 100,Éxito,test_service.py::test_gateway_approved,PASSED
+CP-09,Rollback descarta el pedido,Guardar id=1 y rollback,Consulta devuelve None,Éxito,test_repository.py::test_repository_rollback,PASSED
+CP-10,Pedido guardado conserva sus datos,Guardar id=2 total 250 y commit,"id=2, total 250, estado NEW",Éxito,test_repository.py::test_repository_custom_order,PASSED
+CP-11,Cliente con deuda no confirma,"Total 100, deuda 50",Lanza CustomerHasDebt,Error,test_order.py::test_customer_debt,PASSED
+CP-12,Total debe ser positivo,Total 0,Lanza ValueError,Error,test_order.py::test_invalid_total[0],PASSED
+CP-13,Total debe ser positivo,Total -1,Lanza ValueError,Error,test_order.py::test_invalid_total[-1],PASSED
+CP-14,No confirmar dos veces,Confirmar el mismo pedido dos veces,Lanza ValueError 'already confirmed',Error,test_order.py::test_cannot_confirm_twice,PASSED
+CP-15,Tercero no cancela pedido ajeno,"No propietario, no admin, NEW",Cancelación denegada,Error,test_security.py::test_stranger_denied,PASSED
+CP-16,Pedido enviado nunca se cancela,"Admin, SHIPPED",Cancelación denegada,Error,test_security.py::test_shipped_denied_even_admin,PASSED
+CP-17,Propietario fuera de 24 h no cancela,"Propietario, NEW, creado hace 25 h",Cancelación denegada,Error,test_security.py::test_expired_denied,PASSED
+CP-18,Pago rechazado lanza error,Pasarela (mock) responde False,Lanza RuntimeError,Error,test_service.py::test_gateway_rejected,PASSED
+CP-19,Pago rechazado de VIP cobra el neto,"VIP, total 200, pasarela rechaza",RuntimeError; cobro intentado por 170,Error,test_service.py::test_vip_payment_rejected,PASSED
+CP-20,Timeout de pasarela se propaga,Pasarela (mock) lanza TimeoutError,Lanza TimeoutError,Error,test_service.py::test_gateway_timeout_propagates,PASSED
+CP-21,Id único en pedidos,Guardar dos pedidos con id=1,Lanza IntegrityError; original intacto,Error,test_repository.py::test_repository_duplicate_id_violates_uniqueness,PASSED
+CP-22,Total mínimo positivo es válido,"Regular, total 0.01","Cobro 0.01, CONFIRMED",Límite,test_order.py::test_minimum_positive_total_is_valid,PASSED
+CP-23,Deuda cero permite confirmar,"Total 100, deuda 0","Cobro 100, CONFIRMED",Límite,test_order.py::test_zero_debt_allows_confirmation,PASSED
+CP-24,Límite de 24 h para el propietario,"Propietario, creado hace exactamente 24 h",Cancelación denegada,Límite,test_security.py::test_owner_cannot_cancel_at_exact_24h,PASSED
+CP-25,Límite de 24 h para el propietario,"Propietario, creado hace 23 h 59 min",Cancelación permitida,Límite,test_security.py::test_owner_can_cancel_at_23h59,PASSED
+CP-26,Riesgo conocido: confirma antes de cobrar,"Pago rechazado, total 100",RuntimeError; el pedido queda CONFIRMED (riesgo documentado),Límite,test_service.py::test_rejected_payment_leaves_order_confirmed_known_risk,PASSED

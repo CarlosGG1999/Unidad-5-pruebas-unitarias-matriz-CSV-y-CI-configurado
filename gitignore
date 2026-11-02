@@ -1,0 +1,22 @@
+# Entorno virtual
+.venv/
+venv/
+
+# Cachés de Python y herramientas
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Cobertura
+.coverage
+htmlcov/
+
+# Editor / sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Material didáctico que no necesita el repositorio
+Proyecto_Python_Base_U5.zip
