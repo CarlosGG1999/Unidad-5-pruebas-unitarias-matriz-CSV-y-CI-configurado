@@ -3,6 +3,7 @@ La asistencia minima aun no esta confirmada por EduTech: 80 es un valor de PRUEB
 pasado como configuracion, no una politica aprobada.
 """
 import pytest
+
 from src.domain import (
     EstudianteNoApto,
     Nota,
@@ -10,6 +11,7 @@ from src.domain import (
     PorcentajeAsistencia,
     validar_requisitos_certificacion,
 )
+
 ASISTENCIA_MINIMA_DE_PRUEBA = 80.0
 POLITICA = PoliticaCertificacion(asistencia_minima=ASISTENCIA_MINIMA_DE_PRUEBA)
 def validar(nota=85, asistencia=95.0, concluido=True, pagado=True):
