@@ -6,7 +6,7 @@ negocio aun no confirma (asistencia minima) se reciben como configuracion.
 """
 from dataclasses import dataclass, field
 
-NOTA_MINIMA_APROBATORIA = 75
+NOTA_MINIMA_APROBATORIA = 70
 CUPO_MAXIMO = 25
 
 
